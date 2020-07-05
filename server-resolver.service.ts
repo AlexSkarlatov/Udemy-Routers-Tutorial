@@ -9,12 +9,12 @@ interface Server {
   status: string;
 }
 
-export class ServerResolver implements Resolve<{id: number, name: string, type: string}> {
+export class ServerResolver implements Resolve<Server> {
+  constructor(private serversService: ServersService){}
 
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Server> | Promise<Server> | Server
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+  Observable<Server> | Promise<Server> | Server
   {
-
+    return this.serversService.getServer(+route.params['id']);
   }
-
 }
